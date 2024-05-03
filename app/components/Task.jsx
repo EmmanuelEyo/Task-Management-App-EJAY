@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { MdDateRange } from "react-icons/md";
 import TaskModal from '../modal/TaskModal'
+import ProgressBar from './ProgressBar';
 
 const Task = ({ taskIndex, colIndex }) => {
     const [color, setColor] = useState(null)
@@ -13,11 +14,11 @@ const Task = ({ taskIndex, colIndex }) => {
 
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
 
-    const priorityColorMapping = {
+    const priorityColorMapping = useMemo(() => ({
         Low: 'bg-blue-500',
         Normal: 'bg-green-500',
         High: 'bg-red-500',
-    }
+    }), [])
 
     useEffect(() => {
         if(task.priority in priorityColorMapping) {
@@ -27,7 +28,7 @@ const Task = ({ taskIndex, colIndex }) => {
         }
         
         if(task.dueDate) setDateColor('bg-transparent')
-    }, [col, task.priority, task.dueDate])
+    }, [col, task.priority, task.dueDate, priorityColorMapping])
 
     let completed = 0
     let subtasks = task.subtasks
@@ -39,6 +40,8 @@ const Task = ({ taskIndex, colIndex }) => {
     const handleOnDrag = (e) => {
         e.dataTransfer.setData('text', JSON.stringify({ taskIndex, prevColIndex : colIndex }))
     }
+
+    const completionPercentage = subtasks.length === 0 ? 0 : (completed / subtasks.length) * 100
   return (
     <div>
         <div draggable onDragStart={handleOnDrag} onClick={() => {
@@ -51,6 +54,8 @@ const Task = ({ taskIndex, colIndex }) => {
             </div>
             <p className='text-xs text-gray-400 mt-3 flex justify-start items-center'>{task.description}</p>
             <p className='font-bold text-xs mt-2 text-gray-500 tracking-tighter'>{completed} of {subtasks.length} completed tasks</p>
+            <ProgressBar completedPercentage={completionPercentage} />
+            <p className='text-xs mt-1'>{task.status}</p>
         </div>
 
         {isTaskModalOpen && (

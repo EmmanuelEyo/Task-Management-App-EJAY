@@ -79,6 +79,16 @@ function AddEditTaskModal({
   };
 
   if (type === "edit" && isFirstLoad) {
+    const initialDueDate = task.dueDate
+    let validDate = null
+    try{
+      validDate = new Date(initialDueDate)
+      if(isNaN(validDate.getTime())) {
+        validDate = ''
+      }
+    } catch (error) {
+      validDate = ''
+    }
     setSubtasks(
       task.subtasks.map(subtask => {
         return { ...subtask, id: uuidv4() };
@@ -86,8 +96,8 @@ function AddEditTaskModal({
     );
     setTitle(task.title);
     setDescription(task.description);
-    // setPriority(task.priority)
-    setDueDate(task.dueDate)
+    setPriority(task.priority)
+    setDueDate(validDate)
     setIsFirstLoad(false);
   }
 
@@ -96,18 +106,50 @@ function AddEditTaskModal({
   };
 
   const handleSubmit = (type) => {
-    const formattedDueDate = dueDate ? dueDate.toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    })
-  : ""
-  if (type === "add") {
-    dispatch(addTask({ title, description, subtasks, status, priority, dueDate: formattedDueDate, newColIndex, }));
-  } else {
-    dispatch(editTask({ title, description, subtasks, status, taskIndex, dueDate: formattedDueDate, prevColIndex, newColIndex, priority }));
-  }
-}
+    let formattedDueDate = "";
+  
+    if (dueDate instanceof Date) {
+      formattedDueDate = dueDate.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    }
+  
+    if (type === "add") {
+      dispatch(
+        addTask({
+          title,
+          description,
+          subtasks,
+          status,
+          priority,
+          dueDate: formattedDueDate,
+          newColIndex,
+        })
+      );
+    } else {
+      dispatch(
+        editTask({
+          title,
+          description,
+          subtasks,
+          status,
+          priority,
+          taskIndex,
+          dueDate: formattedDueDate,
+          prevColIndex,
+          newColIndex,
+        })
+      );
+    }
+  
+    setAddEditTask(false); // Close modal after submitting
+  };
+  
+  
+  
+  
 
   return (
     <div
@@ -196,7 +238,7 @@ function AddEditTaskModal({
         {/* date Status  */}
         <div className="flex flex-col mt-5 space-y-1">
           <label className="text-sm text-gray-500 dark:text-white" htmlFor="date">Due Date</label>
-          <ReactDatePicker className="flex-grow cursor-pointer mt-2 px-4 py-2 rounded-md text-sm bg-transparent focus:border-0  border-[1px] border-gray-300 focus:outline-[#635fc7] outline-none" selected={dueDate} onChange={handleChangeDueDate} dateFormat="dd MMMM yyyy" placeholderText="select a due date" />
+          <ReactDatePicker className="flex-grow cursor-pointer mt-2 px-4 py-2 rounded-md text-sm bg-transparent focus:border-0  border-[1px] border-gray-300 focus:outline-[#635fc7] outline-none" selected={dueDate} onChange={date => handleChangeDueDate(date)} dateFormat="dd MMMM yyyy" placeholderText="select a due date" />
         </div>
 
         {/* current Status  */}

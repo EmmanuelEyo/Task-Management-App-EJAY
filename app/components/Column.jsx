@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { dragTask } from '../redux/boardSlice'
 import Task from './Task'
@@ -16,12 +16,12 @@ const Column = ({ colIndex }) => {
     //     'bg-pink-500',
     //     'bg-sky-500',
     // ]
-    const columnColorMapping = {
+    const columnColorMapping = useMemo(() => ({
         InQueue: 'bg-red-500',
         InProgress: 'bg-yellow-500',
         Completed: 'bg-green-500',
         Paused: 'bg-blue-500',
-    }
+    }), [])
 
     const dispatch = useDispatch()
 
@@ -54,7 +54,7 @@ const Column = ({ colIndex }) => {
         } else {
             setColor('bg-purple-500')
         }
-    }, [col])
+    }, [col, columnColorMapping])
 
     if(!col) {
         return <div>No column found</div>

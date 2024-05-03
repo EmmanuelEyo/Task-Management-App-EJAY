@@ -18,9 +18,37 @@ const Subtask = ({ index, colIndex, taskIndex }) => {
   }
   
   return (
-    <div className='flex bg-[#f4f7fd] rounded-md items-center justify-start p-3 gap-4 w-full dark:bg-[#20212c] hover:bg-[#645fc740] dark:hover:bg-[#645fc740] relative mb-3'>
-      <input onChange={handleCompleted} type='checkbox' className='w-4 h-4 accent-[#635fc7] cursor-pointer' checked={checked} />
-      <p className={checked && ' line-through opacity-30'}>{subtasks.title}</p>
+    <div className="flex rounded-md items-center justify-start p-3 gap-4 w-full hover:bg-[#645fc740] dark:hover:bg-[#645fc740] relative mb-3">
+      <input
+        onChange={handleCompleted}
+        type="checkbox"
+        className={`w-4 h-4 cursor-pointer accent-[#635fc7]`} 
+        checked={checked}
+        style={{
+          appearance: 'none', 
+          backgroundColor: checked ? '#635fc7' : 'transparent', 
+          border: '2px solid #635fc7',
+          borderRadius: '50%',
+          height: '20px', 
+          width: '20px',
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      />
+      {checked && (
+        <span
+          style={{
+            display: 'inline-block',
+            width: '10px',
+            height: '10px',
+            backgroundColor: '#fff',
+            borderRadius: '50%',
+          }}
+        ></span>
+      )}
+      <p className={checked ? 'line-through opacity-30 text-sm' : 'text-sm'}>{subtasks.title}</p>
     </div>
   )
 }
