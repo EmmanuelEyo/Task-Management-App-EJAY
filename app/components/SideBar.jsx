@@ -117,7 +117,7 @@ function Sidebar({ toggleSideBarOpen, setToggleSideBarOpen }) {
   const dispatch = useDispatch();
   const [boardModalOpen, setBoardModalOpen] = useState(false);
   const [colorTheme, setTheme] = useDarkMode();
-  const [darkSide, setDarkSide] = useState(colorTheme === 'dark');
+  const [darkSide, setDarkSide] = useState(colorTheme === 'light');
 
   const toggleDarkMode = (checked) => {
     setTheme(checked ? 'dark' : 'light');

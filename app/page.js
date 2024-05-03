@@ -3,14 +3,17 @@ import Header from "./components/Header";
 import MainContent from "./components/MainContent";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { setBoardActive } from "./redux/boardSlice";
-import store from "./redux/store";
+import { store, persistor } from "./redux/store";
 import { useState } from "react";
 import EmptyBoard from "./components/EmptyBoard";
+import { PersistGate } from "redux-persist/integration/react";
 
 export default function Home() {
   return(
     <Provider store={store}>
-      <ReduxContent />
+      <PersistGate persistor={persistor} loading={null}>
+        <ReduxContent />
+      </PersistGate>
     </Provider>
   )
 }

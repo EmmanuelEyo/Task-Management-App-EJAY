@@ -10,12 +10,10 @@ import { setBoardActive } from '../redux/boardSlice';
 const HeaderDropdown = ({ setOpenDropDown, setBoardModalOpen }) => {
     const dispatch = useDispatch()
     const [colorTheme, setTheme] = useDarkMode()
-    const [darkSide, setDarkSide] = useState(
-        colorTheme === 'light' ? true : false
-    )
+    const [darkSide, setDarkSide] = useState(colorTheme === 'light')
 
     const toggleDarkMode = (toggle) => {
-        setTheme(colorTheme)
+        setTheme(toggle ? 'dark' : 'light')
         setDarkSide(toggle)
     }
 
