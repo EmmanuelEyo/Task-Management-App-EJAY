@@ -50,7 +50,7 @@ const Task = ({ taskIndex, colIndex }) => {
             <p className='font-bold tracking-wide'>{task.title}</p>
             <div className="flex space-x-2">
                 <p className={`rounded-md text-xs text-gray-100 w-16 mt-3 font-semibold flex justify-center items-center h-7 ${color}`}>{task.priority}</p>
-                <p className={`rounded-md text-xs text-gray-300 w-28 mt-3 border border-blue-500 flex justify-center items-center h-7 ${dateColor}`}><MdDateRange size={15} />{task.dueDate}</p>
+                <p className={`rounded-md text-xs dark:text-gray-300 text-gray-500 w-28 mt-3 border border-blue-900 flex justify-center items-center border-x-2 border-y-2 h-7 ${dateColor}`}><MdDateRange className=' text-blue-900 -mt-0.5 mr-1' size={15} />{task.dueDate}</p>
             </div>
             <p className='text-xs text-gray-400 mt-3 flex justify-start items-center'>{task.description}</p>
             <p className='font-bold text-xs mt-2 text-gray-500 tracking-tighter'>{completed} of {subtasks.length} completed tasks</p>

@@ -48,7 +48,7 @@ const Subtask = ({ index, colIndex, taskIndex }) => {
           }}
         ></span>
       )}
-      <p className={checked ? 'line-through opacity-30 text-sm' : 'text-sm'}>{subtasks.title}</p>
+      <p className={checked ? 'line-through opacity-30 text-gray-500 dark:text-gray-300 text-sm' : 'text-sm text-gray-500 dark:text-gray-300'}>{subtasks.title}</p>
     </div>
   )
 }

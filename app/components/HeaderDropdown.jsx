@@ -3,14 +3,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { SiTask } from "react-icons/si";
 import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
+import { CiChat1 } from "react-icons/ci";
 import { Switch } from '@headlessui/react';
 import useDarkMode from '../hooks/useDarkMode';
 import { setBoardActive } from '../redux/boardSlice';
+import { useAuth } from '../context/AuthContext';
+import Link from 'next/link';
 
 const HeaderDropdown = ({ setOpenDropDown, setBoardModalOpen }) => {
     const dispatch = useDispatch()
     const [colorTheme, setTheme] = useDarkMode()
     const [darkSide, setDarkSide] = useState(colorTheme === 'light')
+    const { handleUserLogout } = useAuth()
 
     const toggleDarkMode = (toggle) => {
         setTheme(toggle ? 'dark' : 'light')
@@ -45,6 +49,15 @@ const HeaderDropdown = ({ setOpenDropDown, setBoardModalOpen }) => {
                 }}>
                     <SiTask />
                     <p className='text-lg font-bold cursor-pointer'>Create New Board</p>
+                </div>
+                <div>
+                    <Link href='/chatlify'>
+                        <div
+                          className=" flex justify-start items-center space-x-2 mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#635fc7] px-5 py-4">
+                          <CiChat1 size={20} />
+                          <p className="text-lg font-bold">Chatlify </p>
+                        </div>
+                    </Link>
                 </div>
                 <div className='bg-slate-100 p-4 space-x-2 dark:bg-[#20212c] flex justify-center items-center rounded-lg'>
                     <CiLight className='text-[#635fc7]' />

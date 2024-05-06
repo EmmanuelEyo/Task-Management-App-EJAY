@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import boardSlice from './boardSlice';
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Ensure correct storage type
-import { PersistGate } from "redux-persist/integration/react"; // Check if integration is correct
+// import { PersistGate } from "redux-persist/integration/react"; 
 
 const persistConfig = {
   key: 'root',

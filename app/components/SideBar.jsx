@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux';
 import { setBoardActive } from '../redux/boardSlice';
 import { SiTask } from 'react-icons/si';
@@ -6,14 +7,18 @@ import useDarkMode from '../hooks/useDarkMode';
 import { CiLight } from 'react-icons/ci';
 import { MdDarkMode } from 'react-icons/md';
 import { FaRegEyeSlash } from "react-icons/fa6";
+import { CiChat1 } from "react-icons/ci";
 import { Switch } from '@headlessui/react';
 import AddEditBoardModal from '../modal/AddEditBoardModal';
+import { FiLogOut } from "react-icons/fi";
+import { useAuth } from '../context/AuthContext';
 
 function Sidebar({ toggleSideBarOpen, setToggleSideBarOpen }) {
   const dispatch = useDispatch();
   const [boardModalOpen, setBoardModalOpen] = useState(false);
   const [colorTheme, setTheme] = useDarkMode();
   const [darkSide, setDarkSide] = useState(colorTheme === 'light');
+  const { handleUserLogout } = useAuth()
 
   const toggleDarkMode = (checked) => {
     setTheme(checked ? 'dark' : 'light');
@@ -63,14 +68,25 @@ function Sidebar({ toggleSideBarOpen, setToggleSideBarOpen }) {
                   ))}
 
                   <div
-                    className=" flex  items-baseline space-x-2  mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#635fc7] px-5 py-4 hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white  "
+                    className=" flex items-baseline space-x-2 mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#635fc7] px-5 py-4 hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white"
                     onClick={() => {
                       setBoardModalOpen(true);
                     }}
                   >
-                    <SiTask className="   filter-white  h-4 " />
-                    <p className=" text-lg font-bold  ">Create New Board </p>
+                    <SiTask className="h-4" />
+                    <p className="text-lg font-bold">Create New Board </p>
                   </div>
+                  <Link href='/chatlify'>
+                    <div
+                      className=" flex justify-start items-center space-x-2 mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#635fc7] px-5 py-4">
+                      <CiChat1 size={20} />
+                      <p className="text-lg font-bold">Chatlify </p>
+                    </div>
+                  </Link>
+                </div>
+
+                <div onClick={handleUserLogout} className=" flex justify-center items-center space-x-2 mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#635fc7] px-5 py-4">
+                  <FiLogOut size={50} />
                 </div>
 
                 <div className=" mx-2  p-4 relative space-x-2 bg-slate-100 dark:bg-[#20212c] flex justify-center items-center rounded-lg">

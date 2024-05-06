@@ -10,6 +10,7 @@ import { deleteBoard, setBoardActive } from '../redux/boardSlice';
 import AddEditTaskModal from '../modal/AddEditTaskModal';
 import Menu from './Menu';
 import DeleteModal from '../modal/DeleteModal';
+import { useAuth } from '../context/AuthContext';
 
 const Header = ({ boardModalOpen, setBoardModalOpen }) => {
     const [openDropDown, setOpenDropDown] = useState(false)
@@ -17,6 +18,7 @@ const Header = ({ boardModalOpen, setBoardModalOpen }) => {
     const [boardType, setBoardType] = useState('add')
     const [isMenu, setIsMenu] = useState(false)
     const [addEditTask, setAddEditTask] = useState(false)
+    const { user } = useAuth()
 
     const dispatch = useDispatch()
 
@@ -46,7 +48,7 @@ const Header = ({ boardModalOpen, setBoardModalOpen }) => {
         <header className='flex dark:text-white justify-between dark:bg-[#2b2c37] items-center'>
             <div className='flex items-center space-x-2 md:space-x-4'>
                 <Image src='/logo.png' alt='logo' width={40} height={40} />
-                <h3 className='hidden md:inline-block font-bold md:text-4xl'>EJAY TaskMaster</h3>
+                <h3 className='hidden md:inline-block text-gray-700 dark:text-gray-300 font-bold md:text-4xl'>Welcome to Tasklify! {user.name}</h3>
                 <div className='flex items-center'>
                     <h3 className='truncate md:ml-20 max-w-[200px] text-xl font-bold md:text-2xl'>{boardName}</h3>
                     { openDropDown ? <FaArrowUp className='w-3 ml-2 md:hidden cursor-pointer' onClick={() => {

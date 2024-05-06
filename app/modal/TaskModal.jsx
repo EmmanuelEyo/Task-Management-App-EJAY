@@ -105,7 +105,7 @@ const TaskModal = ({ colIndex, taskIndex, setIsTaskModalOpen }) => {
         } bg-white dark:bg-[#2b2c37] dark:text-white max-w-md mx-auto w-full rounded-xl p-8 overflow-y-auto shadow-lg`}
       >
         <div className="relative flex justify-between w-full items-center">
-          <h1 className="text-xl">{task.title}</h1>
+          <h1 className="text-2xl dark:text-gray-300 text-gray-600">{task.title}</h1>
           <BsThreeDotsVertical onClick={() => setIsMenuOpen(!isMenuOpen)} className="cursor-pointer h-6" />
           {isMenuOpen && <Menu setOpenEditModal={() => setIsAddTaskModalOpen(true)} type="task" setOpenDeleteModal={() => setDeleteModalOpen(true)} />}
         </div>
@@ -119,7 +119,7 @@ const TaskModal = ({ colIndex, taskIndex, setIsTaskModalOpen }) => {
         </div>
         <div className='flex space-x-3 mt-3 items-center justify-start'>
           <p className='text-gray-500'>Due date</p>
-          <p className={`rounded-md text-xs text-gray-300 w-28 mt-1 border border-blue-500 flex justify-center items-center h-7 ${dateColor}`}><MdDateRange size={15} />{task.dueDate}</p>
+          <p className={`rounded-md text-xs dark:text-gray-300 text-gray-500 w-28 mt-1 border border-blue-900 border-x-2 border-y-2 flex justify-center items-center h-7 ${dateColor}`}><MdDateRange className='text-blue-900' size={15} />{task.dueDate}</p>
         </div>
         <p className="text-gray-500 font-semibold text-sm pt-6 tracking-wide">{task.description}</p>
         <p className="pt-6 text-gray-500 tracking-widest text-sm">({completed} of {subtasks.length})</p>
